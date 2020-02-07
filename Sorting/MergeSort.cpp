@@ -1,7 +1,6 @@
 using namespace std;
 #include <iostream>
 
-
 void MergeTwoArea(int arr[], int left, int mid, int right)
 {
 	int fIdx = left;
@@ -39,6 +38,7 @@ void MergeTwoArea(int arr[], int left, int mid, int right)
 	free(sortArr);
 }
 
+
 void MergeSort(int arr[], int left, int right)
 {
 	int mid;
@@ -57,6 +57,7 @@ void MergeSort(int arr[], int left, int right)
 	}
 }
 
+
 int main(void)
 {
 	int arr[7] = { 3, 2, 4, 1, 7, 6 ,5 };
@@ -70,4 +71,4 @@ int main(void)
 
 	cout << endl;
 	return 0;
-
+}
