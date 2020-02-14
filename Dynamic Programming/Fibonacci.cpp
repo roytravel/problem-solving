@@ -19,7 +19,7 @@ int main()
 	int n; 
 	cin >> n;
 	
-	cout << fibo(n) << endl; 
+	cout << fibonacci(n) << endl; 
 	
 	return 0;	
 }
