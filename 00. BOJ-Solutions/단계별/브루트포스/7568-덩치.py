@@ -8,8 +8,6 @@ for _ in range(N):
     weight, height = list(map(int, input().split()))
     students.append((weight, height))
 
-
-
 for i in students:
     rank = 1
     for j in students:
