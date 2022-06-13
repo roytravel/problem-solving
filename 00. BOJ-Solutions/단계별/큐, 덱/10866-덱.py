@@ -1,74 +1,48 @@
-class Deque(object):
-    def __init__(self):
-        self.deque = []
+import sys
+from collections import deque
 
-    def push_front(self, X):
-        self.deque.insert(0, int(X))
-        print (int(X))
+input = sys.stdin.readline
+N = int(input())
+queue = deque([])
 
-    def push_back(self, X):
-        self.deque.append(int(X))
-        print (int(X))
-
-    def pop_front(self):
-        if len(self.deque) >= 1:
-            print (self.deque.pop(0))
+for i in range(N):
+    command = input().split()
+    
+    if command[0] == "push_front":
+        queue.appendleft(int(command[1]))
+    
+    elif command[0] == "push_back":
+        queue.append(int(command[1]))
+    
+    elif command[0] == "pop_front":
+        if queue:
+            print (queue.popleft())
         else:
             print (-1)
 
-    def pop_back(self):
-        if len(self.deque) >= 1:
-            print (self.deque.pop())
+    elif command[0] == "pop_back":
+        if queue:
+            print (queue.pop())
         else:
             print (-1)
-
-    def size(self):
-        print (len(self.deque))
-
-
-    def empty(self):
-        if len(self.deque) == 0:
-            print (1)
-        else:
+    
+    elif command[0] == "size":
+        print (len(queue))
+    
+    elif command[0] == "empty":
+        if queue:
             print (0)
+        else:
+            print (1)
 
-    def front(self):
-        if len(self.deque) >= 1:
-            print (self.deque[0])
+    elif command[0] == "front":
+        if queue:
+            print (queue[0])
         else:
             print (-1)
-
-    def back(self):
-        if len(self.deque) >= 1:
-            print (self.deque[-1])
-        else:
-            print (-1)
-
-if __name__ == "__main__":
-    N = int(input())
-    deque = Deque()
-
-    cmd_map = {
-        'push_front': deque.push_front,
-        'push_back': deque.push_back,
-        'pop_front': deque.pop_front,
-        'pop_back': deque.pop_back,
-        'size': deque.size,
-        'empty': deque.empty,
-        'front': deque.front,
-        'back': deque.back
-    }
-
-    for i in range(N):
-        statement = input().split()
-
-        if len(statement) == 1:
-            cmd = statement[0]
-            cmd_map[cmd]()
         
+    elif command[0] == "back":
+        if queue:
+            print (queue[-1])
         else:
-            cmd, value = statement
-            cmd_map[cmd](value)
-
-        # result = deque.cmd(value)
-        # print (result)
+            print (-1)
