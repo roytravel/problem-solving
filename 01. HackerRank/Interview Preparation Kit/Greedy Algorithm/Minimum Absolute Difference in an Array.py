@@ -1,13 +1,22 @@
 import os
+import sys
 
 def minimumAbsoluteDifference(arr):
-    candidate = []
+    # partially correct
+    # _sum = []
+    # for i in range(n):
+    #     for j in range(i+1, n):
+    #         _sum.append(abs(arr[i] - arr[j]))
+    # return min(_sum)
+
+    # solution
     arr.sort()
-    for i in range(n-1):
-        difference = abs(arr[i] - arr[i+1])
-        candidate.append(difference)
-    return min(candidate)
-    
+    value = sys.maxsize
+    for i in range(len(arr)-1):
+        value = min(value, abs(arr[i] - arr[i+1]))
+
+    return value
+            
 if __name__ == '__main__':
     fptr = open(os.environ['OUTPUT_PATH'], 'w')
     n = int(input().strip())
