@@ -7,6 +7,7 @@ def dfs(node):
     for n in graph[node]:
         if check[n] == 0:
             check[n] = check[node] + 1
+            print (n, node, graph, check )
             dfs(n)
 
 def bfs(node):
