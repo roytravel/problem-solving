@@ -29,10 +29,5 @@ for _ in range(N):
     for weight, value in cache.items():
         if curr_weight + weight <= K and curr_value + value > cache.get(curr_weight + weight, 0):
             temp[curr_weight + weight] = curr_value + value
-            print (True, temp)
-    print (False, cache)
     cache.update(temp)
-    print (True, cache)
-
-print (cache)
 print (max(cache.values()))

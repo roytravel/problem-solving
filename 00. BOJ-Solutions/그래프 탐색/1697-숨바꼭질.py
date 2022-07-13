@@ -4,10 +4,6 @@ input = sys.stdin.readline
 N, K = map(int, input().split())
 MAX = 10**5
 visited = [0] * (MAX + 1)
-""" 
-5 17
-5 -> 10 -> 9 -> 18 -> 17
-"""
 
 def bfs(start):
     queue = deque([start])

@@ -1,7 +1,7 @@
 import os
 
 def maximumToys(prices, k):
-    # solution 1
+    # solution
     prices.sort()
     toy = 0
     for i in prices:
@@ -12,7 +12,7 @@ def maximumToys(prices, k):
             return toy
 
 
-    # solution 2
+    # code that I tried
     count = [0] * (max(prices) + 1)
     for num in prices:
         count[num] += 1
@@ -29,7 +29,6 @@ def maximumToys(prices, k):
     toy = 0
     for i in result:
         k = k - i
-        print (k)
         if k >= 0:
             toy += 1
         else:
