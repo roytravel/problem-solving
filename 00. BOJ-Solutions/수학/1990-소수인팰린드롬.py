@@ -8,7 +8,6 @@ def is_prime(num):
             return False
     return True
 
-
 a, b = map(int, input().split())
 if b > 10000000:
     b = 10000000

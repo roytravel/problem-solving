@@ -1,19 +1,14 @@
 import sys
+from copy import deepcopy
 input = sys.stdin.readline
-nums = list(map(int, input().split()))
-
-if nums[0] == 1:
-    for i in range(1, 9):
-        if nums[i-1] != i:
-            print ("mixed")
-            break
-    else:
-        print ("ascending")
-
-if nums[0] == 8:
-    for i in range(8, 0, -1):
-        if nums[8-i] != i:
-            print ("mixed")
-            break
-    else:
-        print ("descending")
+numbers = list(map(int, input().split()))
+numbers_asc = deepcopy(numbers)
+numbers_asc.sort()
+numbers_dsc = deepcopy(numbers)
+numbers_dsc.sort(reverse=True)
+if numbers == numbers_asc:
+    print ("ascending")
+elif numbers == numbers_dsc:
+    print ("descending")
+else:
+    print ("mixed")
