@@ -20,7 +20,7 @@ for i in range(X, N):
     if value > MAX:
         MAX = value
         count = 1
-    
+
     elif value == MAX:
         count += 1
 

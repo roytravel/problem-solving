@@ -2,7 +2,7 @@ import sys
 input = sys.stdin.readline
 
 class Queue:
-    def __init__(self) -> None:
+    def __init__(self):
         self.queue = []
 
     def push(self, x):
@@ -37,13 +37,9 @@ class Queue:
         else:
             print(self.queue[-1])
 
-
 Q = Queue()
 N = int(input())
-
 command = {'pop':Q.pop, 'size':Q.size, 'front':Q.front, 'back':Q.back, 'empty':Q.empty}
-
-
 for _ in range(N):
     cmd = input().split()
     if cmd[0] == "push":
