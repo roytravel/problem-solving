@@ -33,7 +33,27 @@ class Sort:
 
     def merge_sort(self, array : list) -> list:
         """ Best: O(nlogn) Average: O(nlogn) Worst: O(nlogn) | O(nlogn) """
-        pass
+        if len(array) < 2:
+            return array
+        
+        mid = len(array) // 2
+        low = self.merge_sort(array[:mid])
+        high = self.merge_sort(array[mid:])
+
+        merged_array = []
+        l, h = 0, 0
+        while l < len(low) and h < len(high):
+            if low[l] < high[h]:
+                merged_array.append(low[l])
+                l += 1
+            else:
+                merged_array.append(high[h])
+                h += 1
+        
+        merged_array += low[l:]
+        merged_array += high[h:]
+
+        return merged_array
 
     def quick_sort(self, array : list) -> list:
         """ Best: O(nlogn) Average: O(nlogn) Worst: O(n^2) | O(nlogn) """
@@ -41,16 +61,27 @@ class Sort:
 
     def insert_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n^2) Worst: O(n^2) | O(n^2) """
-        pass
+        # 1. Optimization code
+        for i in range(1, len(array)):
+            j = i
+            while j > 0 and array[j-1] > array[j]:
+                array[j-1], array[j] = array[j], array[j-1]
+                j -= 1
+        return array
+
+         # 2. General code
+        for i in range(1, len(array)):
+            for j in range(i, 0, -1):
+                if array[j-1] > array[j]:
+                    array[j-1], array[j] = array[j], array[j-1]
+        return array
 
     def bubble_sort(self, array : list) -> list:
         """ Best: O(n^2) Average: O(n^2) Worst: O(n^2) | O(n) """
         for i in range(len(array)):
             for j in range(len(array)-i-1):
                 if array[j] > array[j+1]:
-                    temp = array[j]
-                    array[j] = array[j+1]
-                    array[j+1] = temp
+                    array[j], array[j+1] = array[j+1], array[j]
         return array
 
     def selection_sort(self, array : list) -> list:
@@ -61,4 +92,6 @@ class Sort:
 array = [1, 10, 5, 5, 2, 9, 8, 7, 6, 4, 0, 3, 2, 9]
 sort = Sort()
 #print (sort.bubble_sort(array))
-print (sort.counting_sort(array))
+#print (sort.counting_sort(array))
+# print (sort.insert_sort(array))
+print (sort.merge_sort(array))
