@@ -57,7 +57,33 @@ class Sort:
 
     def quick_sort(self, array : list) -> list:
         """ Best: O(nlogn) Average: O(nlogn) Worst: O(n^2) | O(nlogn) """
-        pass
+        if len(array) <= 1:
+            return array
+
+        pivot = array[len(array) // 2]
+        small, big, equal = [], [], []
+
+        for n in array:
+            if n < pivot:
+                small.append(n)
+            elif n > pivot:
+                big.append(n)
+            else:
+                equal.append(n)
+        
+        return self.quick_sort(small) + equal + self.quick_sort(big)
+
+    def _quick_sort(self, array : list) -> list:
+        """ Pythonic version of quick sort """
+        if len(array) <= 1:
+            return array
+
+        pivot, arr = array[0], array[1:]
+        small = [n for n in arr if n < pivot]
+        big = [n for n in arr if n > pivot]
+
+        return self._quick_sort(small) + [pivot] + self._quick_sort(big)
+
 
     def insert_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n^2) Worst: O(n^2) | O(n^2) """
@@ -93,5 +119,7 @@ array = [1, 10, 5, 5, 2, 9, 8, 7, 6, 4, 0, 3, 2, 9]
 sort = Sort()
 #print (sort.bubble_sort(array))
 #print (sort.counting_sort(array))
-# print (sort.insert_sort(array))
-print (sort.merge_sort(array))
+#print (sort.insert_sort(array))
+#print (sort.merge_sort(array))
+#print (sort.quick_sort(array))
+#print (sort._quick_sort(array))
