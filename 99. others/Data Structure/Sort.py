@@ -32,10 +32,10 @@ class Sort:
         pass
 
     def merge_sort(self, array : list) -> list:
-        """ Best: O(nlogn) Average: O(nlogn) Worst: O(nlogn) | O(nlogn) """
+        """ Best: O(nlogn) Average: O(nlogn) Worst: O(nlogn) | O(n) """
         if len(array) < 2:
             return array
-        
+
         mid = len(array) // 2
         low = self.merge_sort(array[:mid])
         high = self.merge_sort(array[mid:])
