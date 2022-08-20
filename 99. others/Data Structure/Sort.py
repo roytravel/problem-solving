@@ -4,20 +4,22 @@ class Sort:
 
     def counting_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n+k) Worst: O(n+k) """
-        count = [0] * (max(array) + 1)
-        for num in array:
+        count = [0] * (max(array) + 1) # 1. create a count array to check how many numbers each have.
+        
+        for num in array: # 2. check how many numbers each have.
             count[num] += 1
-        
-        for i in range(1, len(count)):
-            count[i] += count[i-1]
-        
-        result = [0] * len(array)
-        for num in array:
-            idx = count[num]
-            result[idx - 1] = num
-            count[num] = count[num] - 1
 
-        return result
+        for i in range(1, len(count)): # 3. do cumulative sum
+            count[i] += count[i-1]
+
+        arr = [0] * len(array) # 4. create a new array to contain the numbers to be sorted.
+
+        for num in array: # 5. sort.
+            idx = count[num]
+            arr[idx-1] = num
+            count[num] -= 1
+        
+        return arr
 
     def radix_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n) Worst: O(n)"""
@@ -118,8 +120,8 @@ class Sort:
 array = [1, 10, 5, 5, 2, 9, 8, 7, 6, 4, 0, 3, 2, 9]
 sort = Sort()
 #print (sort.bubble_sort(array))
-#print (sort.counting_sort(array))
 #print (sort.insert_sort(array))
 #print (sort.merge_sort(array))
 #print (sort.quick_sort(array))
 #print (sort._quick_sort(array))
+print (sort.counting_sort(array))
