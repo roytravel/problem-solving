@@ -2,6 +2,7 @@ class Sort:
     def __init__(self) -> None:
         pass
 
+
     def counting_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n+k) Worst: O(n+k) """
         count = [0] * (max(array) + 1) # 1. create a count array to check how many numbers each have.
@@ -21,17 +22,46 @@ class Sort:
         
         return arr
 
+
     def radix_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n) Worst: O(n)"""
         pass
+
 
     def shell_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n^1.3,1.5) Worst: O(n^2) | O(n) """
         pass
 
+
     def heap_sort(self, array : list) -> list:
         """ Best: O(nlogn) Average: O(nlogn) Worst: O(nlogn) | O(nlogn) """
-        pass
+        n = len(array)
+
+        for i in range(n//2-1, -1, -1):
+            self._heapify(array, i, n)
+        
+        for i in range(n-1, 0, -1):
+            array[0], array[i] = array[i], array[0]
+            self._heapify(array, 0, i)
+
+        return array
+        
+
+    def _heapify(self, array : list, index : int, heap_size : int) -> None:
+        largest = index
+        left = (2 * index) + 1
+        right = (2 * index) + 2
+
+        if left < heap_size and array[left] > array[largest]:
+            largest = left
+        
+        if right < heap_size and array[right] > array[largest]:
+            largest = right
+        
+        if largest != index:
+            array[largest], array[index] = array[index], array[largest]
+            self._heapify(array, largest, heap_size)
+
 
     def merge_sort(self, array : list) -> list:
         """ Best: O(nlogn) Average: O(nlogn) Worst: O(nlogn) | O(n) """
@@ -57,6 +87,7 @@ class Sort:
 
         return merged_array
 
+
     def quick_sort(self, array : list) -> list:
         """ Best: O(nlogn) Average: O(nlogn) Worst: O(n^2) | O(nlogn) """
         if len(array) <= 1:
@@ -75,6 +106,7 @@ class Sort:
         
         return self.quick_sort(small) + equal + self.quick_sort(big)
 
+
     def _quick_sort(self, array : list) -> list:
         """ Pythonic version of quick sort """
         if len(array) <= 1:
@@ -88,8 +120,7 @@ class Sort:
 
 
     def insert_sort(self, array : list) -> list:
-        """ Best: O(n) Average: O(n^2) Worst: O(n^2) | O(n^2) """
-        # 1. Optimization code
+        """ Best: O(n) Average: O(n^2) Worst: O(n^2) | O(n^2) """ # 1. Optimization code
         for i in range(1, len(array)):
             j = i
             while j > 0 and array[j-1] > array[j]:
@@ -97,12 +128,15 @@ class Sort:
                 j -= 1
         return array
 
-         # 2. General code
+
+    def _insert_code(self, array : list) -> list:
+        """ Best: O(n) Average: O(n^2) Worst: O(n^2) | O(n^2) """ # 2. General code
         for i in range(1, len(array)):
             for j in range(i, 0, -1):
                 if array[j-1] > array[j]:
                     array[j-1], array[j] = array[j], array[j-1]
         return array
+
 
     def bubble_sort(self, array : list) -> list:
         """ Best: O(n^2) Average: O(n^2) Worst: O(n^2) | O(n) """
@@ -111,6 +145,7 @@ class Sort:
                 if array[j] > array[j+1]:
                     array[j], array[j+1] = array[j+1], array[j]
         return array
+
 
     def selection_sort(self, array : list) -> list:
         """ Best: O(n^2) Average: O(n^2) Worst: O(n^2) | O(n^2) """
@@ -124,4 +159,5 @@ sort = Sort()
 #print (sort.merge_sort(array))
 #print (sort.quick_sort(array))
 #print (sort._quick_sort(array))
-print (sort.counting_sort(array))
+# print (sort.counting_sort(array))
+print (sort.heap_sort(array))
