@@ -2,15 +2,14 @@
 
 def candies(n, arr):
     candy = [1] * n
-    for i in range(n-1):
-        if arr[i+1] > arr[i]:
+    for i in range(n-1): # 정방향 배열 순회
+        if arr[i+1] > arr[i]: # rating이 증가할 때 이전 캔디 보다 1개 더 많이 주기
             candy[i+1] = candy[i] + 1
     
-    for i in range(n-1, 0, -1):
-        if arr[i-1] > arr[i] and candy[i] >= candy[i-1]: # 줄어들 때 
-            candy[i-1] = candy[i] + 1
+    for i in range(n-1, 0, -1): # 역방향 배열 순회
+        if arr[i-1] > arr[i] and candy[i] >= candy[i-1]: # 이전 아이가 raiting이 높은데 candy는 현재 아이가 많이 받은 경우
+            candy[i-1] = candy[i] + 1 # 현재 아이보다 하나 더해서 주기
 
-    print (candy)
     return sum(candy)
 
 
