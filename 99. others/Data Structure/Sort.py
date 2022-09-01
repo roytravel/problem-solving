@@ -25,7 +25,24 @@ class Sort:
 
     def radix_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n) Worst: O(n)"""
-        return array
+        from collections import deque
+        buckets = [deque() for _ in range(10)]
+        MAX = max(array)
+        queue = deque(array)
+        radix = 1
+
+        while MAX >= radix:
+            while queue:
+                num = queue.popleft()
+                buckets[(num // radix) % 10].append(num)
+
+            for bucket in buckets:
+                while bucket:
+                    queue.append(bucket.popleft())
+
+            radix *= 10
+
+        return list(queue)
 
 
     def shell_sort(self, array : list) -> list:
@@ -60,19 +77,19 @@ class Sort:
 
 
     def _heapify(self, array : list, index : int, heap_size : int) -> None:
-        smallest = index
+        biggest = index
         left = (2 * index) + 1
         right = (2 * index) + 2
 
-        if left < heap_size and array[left] < array[smallest]:
-            smallest = left
+        if left < heap_size and array[left] > array[biggest]:
+            biggest = left
         
-        if right < heap_size and array[right] < array[smallest]:
-            smallest = right
+        if right < heap_size and array[right] > array[biggest]:
+            biggest = right
         
-        if smallest != index:
-            array[smallest], array[index] = array[index], array[smallest]
-            self._heapify(array, smallest, heap_size)
+        if biggest != index:
+            array[biggest], array[index] = array[index], array[biggest]
+            self._heapify(array, biggest, heap_size)
 
 
     def merge_sort(self, array : list) -> list:
@@ -126,9 +143,10 @@ class Sort:
 
         pivot, arr = array[0], array[1:]
         small = [n for n in arr if n < pivot]
+        mid = [n for n in arr if n == pivot]
         big = [n for n in arr if n > pivot]
 
-        return self._quick_sort(small) + [pivot] + self._quick_sort(big)
+        return self._quick_sort(small) + [pivot] + mid + self._quick_sort(big)
 
 
     def insert_sort(self, array : list) -> list:
@@ -175,12 +193,13 @@ class Sort:
 if __name__ == "__main__":
     array = [1, 10, 5, 5, 2, 9, 8, 7, 6, 4, 0, 3, 2, 9]
     sort = Sort()
-    # print (sort.selection_sort(array))
-    # print (sort.bubble_sort(array))
-    # print (sort.insert_sort(array))
-    # print (sort.merge_sort(array))
-    # print (sort.quick_sort(array))
-    # print (sort._quick_sort(array))
-    # print (sort.counting_sort(array))
-    # print (sort.heap_sort(array))
-    # print (sort.shell_sort(array))
+    print (sort.selection_sort(array))
+    print (sort.bubble_sort(array))
+    print (sort.insert_sort(array))
+    print (sort.merge_sort(array))
+    print (sort.quick_sort(array))
+    print (sort._quick_sort(array))
+    print (sort.counting_sort(array))
+    print (sort.heap_sort(array))
+    print (sort.shell_sort(array))
+    print (sort.radix_sort(array))
