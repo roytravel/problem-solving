@@ -159,7 +159,7 @@ class Sort:
         return array
 
 
-    def _insert_code(self, array : list) -> list:
+    def _insert_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n^2) Worst: O(n^2) | O(n^2) """ # 2. General code
         for i in range(1, len(array)):
             for j in range(i, 0, -1):
