@@ -25,12 +25,24 @@ class Sort:
 
     def radix_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n) Worst: O(n)"""
-        pass
+        return array
 
 
     def shell_sort(self, array : list) -> list:
         """ Best: O(n) Average: O(n^1.3,1.5) Worst: O(n^2) | O(n) """
-        pass
+        n = len(array)
+        h = n // 2 # h = interval
+        while h > 0:
+            for i in range(h, n):
+                j = i - h
+                temp = array[i]
+                while j >= 0 and array[j] > temp:
+                    array[j+h] = array[j]
+                    j -= h
+                array[j+h] = temp
+            h //= 2
+
+        return array
 
 
     def heap_sort(self, array : list) -> list:
@@ -45,22 +57,22 @@ class Sort:
             self._heapify(array, 0, i)
 
         return array
-        
+
 
     def _heapify(self, array : list, index : int, heap_size : int) -> None:
-        largest = index
+        smallest = index
         left = (2 * index) + 1
         right = (2 * index) + 2
 
-        if left < heap_size and array[left] > array[largest]:
-            largest = left
+        if left < heap_size and array[left] < array[smallest]:
+            smallest = left
         
-        if right < heap_size and array[right] > array[largest]:
-            largest = right
+        if right < heap_size and array[right] < array[smallest]:
+            smallest = right
         
-        if largest != index:
-            array[largest], array[index] = array[index], array[largest]
-            self._heapify(array, largest, heap_size)
+        if smallest != index:
+            array[smallest], array[index] = array[index], array[smallest]
+            self._heapify(array, smallest, heap_size)
 
 
     def merge_sort(self, array : list) -> list:
@@ -140,8 +152,9 @@ class Sort:
 
     def bubble_sort(self, array : list) -> list:
         """ Best: O(n^2) Average: O(n^2) Worst: O(n^2) | O(n) """
-        for i in range(len(array)):
-            for j in range(len(array)-i-1):
+        n = len(array)
+        for i in range(n):
+            for j in range(n-i-1):
                 if array[j] > array[j+1]:
                     array[j], array[j+1] = array[j+1], array[j]
         return array
@@ -149,15 +162,25 @@ class Sort:
 
     def selection_sort(self, array : list) -> list:
         """ Best: O(n^2) Average: O(n^2) Worst: O(n^2) | O(n^2) """
-        pass
+        n = len(array)
+        for i in range(n):
+            idx = i
+            for j in range(i+1, n):
+                if array[idx] > array[j]:
+                    idx = j
+            array[idx], array[i] = array[i], array[idx]
+        return array
 
 
-array = [1, 10, 5, 5, 2, 9, 8, 7, 6, 4, 0, 3, 2, 9]
-sort = Sort()
-#print (sort.bubble_sort(array))
-#print (sort.insert_sort(array))
-#print (sort.merge_sort(array))
-#print (sort.quick_sort(array))
-#print (sort._quick_sort(array))
-# print (sort.counting_sort(array))
-print (sort.heap_sort(array))
+if __name__ == "__main__":
+    array = [1, 10, 5, 5, 2, 9, 8, 7, 6, 4, 0, 3, 2, 9]
+    sort = Sort()
+    # print (sort.selection_sort(array))
+    # print (sort.bubble_sort(array))
+    # print (sort.insert_sort(array))
+    # print (sort.merge_sort(array))
+    # print (sort.quick_sort(array))
+    # print (sort._quick_sort(array))
+    # print (sort.counting_sort(array))
+    # print (sort.heap_sort(array))
+    # print (sort.shell_sort(array))
