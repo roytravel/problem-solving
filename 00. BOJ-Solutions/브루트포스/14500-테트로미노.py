@@ -1,98 +1,49 @@
 import sys
+input = sys.stdin.readline
+
+# ㅗ, ㅜ, ㅓ, ㅏ 모양 제외 최대값 계산
+def dfs(x, y, dsum, count):
+    global MAX
+    if count == 4:
+        MAX = max(MAX, dsum)
+        return
+
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if 0<=nx<N and 0<=ny<M and not visited[nx][ny]:
+            visited[nx][ny] = True
+            dfs(nx, ny, dsum + graph[nx][ny], count+1)
+            visited[nx][ny] = False
 
 
-def tetromino1():
-    pass
-
-def get_max_score():
-
-    # 가로 막대기
-    len_horizontal_bar = 4
-    local_scores = []
-    global_scores = []
-    for i in range(N): # 행
-        for j in range(M - len_horizontal_bar + 1): #열
-            local_scores.append(sum(paper[i][j:j+len_horizontal_bar]))
-
-    print (local_scores)
-    global_scores.append(max(local_scores))
-
-    
-    # 정사각형
-    square_width = 2
-    square_height = 2
-    dx = [1, 0, 1]
-    dy = [0, 1, 1]
-    score = 0
-    local_scores = []
-    for i in range(N - square_width + 1):
-        for j in range(M - square_height + 1):
-            score += paper[i][j]
-            for _ in range(3):
-                new_i = i + dx[_]
-                new_j = j + dy[_]
-                score += paper[new_i][new_j]
-            local_scores.append(score)
-            score = 0
-    
-    print (local_scores)
-    global_scores.append(max(local_scores))
-
-    # L 모양
-    score = 0
-    local_scores = []
-    for i in range(N-2): # 0, 1, 2
-        for j in range(M-2+1):
-            score += paper[i][j]
-            score += paper[i+1][j]
-            score += paper[i+2][j]
-            score += paper[i+2][j+1]
-            local_scores.append(score)
-            score = 0
-    
-    print (local_scores)
-    global_scores.append(max(local_scores))
-
-    # "녹" 모양
-    score = 0
-    local_scores = []
-    for i in range(N - 2): # 0, 1, 2, 3
-        for j in range(M - 2 + 1): # 0, 1, 2
-            score += paper[i][j]
-            score += paper[i+1][j]
-            score += paper[i+1][j+1]
-            score += paper[i+2][j+1]
-            local_scores.append(score)
-            score = 0
-    
-    print (local_scores)
-    global_scores.append(max(local_scores))
-
-    # "ㅜ" 모양
-    score = 0
-    local_scores = []
-    for i in range(N - 2 + 1): # 5-3+1 = 0~3 = 0, 1, 2
-        for j in range(M - 2): # 5-2+1 = [0-4) = 0,1,2,3
-            score += paper[i][j]
-            score += paper[i][j+1] + paper[i][j+2]
-            score += paper[i+1][j+1]
-            
-            local_scores.append(score)
-            score = 0
-    print (local_scores)
-
-    global_scores.append(max(local_scores))
-
-    print (max(global_scores))
+# ㅗ, ㅜ, ㅓ, ㅏ 모양 최대값 계산
+def get_max_value(x, y):
+    global MAX
+    for i in range(4):
+        temp = graph[x][y] 
+        for k in range(3):
+            t = (i+k)%4 # dir 배열 요소를 3개씩 사용할 수 있도록 인덱스 계산 # 012, 123, 230, 301
+            nx = x + dx[t]
+            ny = y + dy[t]
+            if not (0<=nx<N and 0<=ny<M):
+                temp = 0
+                break
+            temp += graph[nx][ny]
+        MAX = max(MAX, temp)
 
 
 if __name__ == "__main__":
-    input = sys.stdin.readline
-    N, M = list(map(int, input().split()))
-    
-    paper = []
-
-    for _ in range(N):
-        paper.append(list(map(int, input().split())))
-
-    get_max_score()
+    MAX = 0
+    N, M = map(int, input().split())
+    graph = [list(map(int, input().split())) for _ in range(N)]
+    visited = [[False] * M for _ in range(N)]
+    dx = [-1, 1, 0, 0]
+    dy = [0, 0, 1, -1]
+    for i in range(N):
+        for j in range(M):
+            visited[i][j] = True
+            dfs(i, j, graph[i][j], 1)
+            visited[i][j] = False
+            get_max_value(i, j)
+    print(MAX)
