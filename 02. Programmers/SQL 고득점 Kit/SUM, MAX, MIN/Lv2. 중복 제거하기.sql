@@ -1,0 +1,3 @@
+SELECT count(unique(NAME))
+FROM ANIMAL_INS
+WHERE NAME is not NULL
